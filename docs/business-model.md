@@ -2,7 +2,7 @@
 
 ## Classification
 
-- Repository: `cloud-itonami-6491`
+- Repository: `cloud-itonami-isic-6491`
 - ISIC Rev.5: `6491`
 - Activity: financial leasing -- extending long-term financing where the lessee acquires substantially all the risks/rewards of the leased asset
 - Social impact: financial inclusion, data sovereignty, transparent audit

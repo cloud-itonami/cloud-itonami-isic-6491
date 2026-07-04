@@ -1,4 +1,4 @@
-# cloud-itonami-6491
+# cloud-itonami-isic-6491
 
 Open Business Blueprint for **ISIC Rev.5 6491**: Financial leasing.
 

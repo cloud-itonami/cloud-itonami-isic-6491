@@ -1,6 +1,6 @@
 # Governance
 
-`cloud-itonami-6491` is an OSS open-business blueprint for financial leasing -- extending long-term financing where the lessee acquires substantially all the risks/rewards of the leased asset.
+`cloud-itonami-isic-6491` is an OSS open-business blueprint for financial leasing -- extending long-term financing where the lessee acquires substantially all the risks/rewards of the leased asset.
 Governance covers both the capability layer and the operator model.
 
 ## Maintainers

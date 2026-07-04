@@ -1,4 +1,4 @@
-{:itonami.blueprint/id "cloud-itonami-6491"
+{:itonami.blueprint/id "cloud-itonami-isic-6491"
  :itonami.blueprint/name "Financial leasing"
  :itonami.blueprint/isic-rev5 "6491"
  :itonami.blueprint/domain :finance/leasing
