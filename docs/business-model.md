@@ -31,6 +31,12 @@
 ## Trust Controls
 
 - no lease is funded/disbursed without human sign-off
-- fabricated collateral/creditworthiness evidence forces a hold, not an override
-- every disbursement path is auditable
+- a fabricated jurisdiction citation, incomplete evidence, insufficient
+  collateral coverage, or an unresolved adverse credit flag -- each
+  forces a hold, not an override
+- a lease's funding cannot be disbursed twice: a double-disbursement
+  attempt is held off this actor's own lease facts alone, with no
+  upstream comparison needed
+- every intake, assessment, screening and disbursement path is
+  auditable
 - emergency manual override paths remain outside LLM control
