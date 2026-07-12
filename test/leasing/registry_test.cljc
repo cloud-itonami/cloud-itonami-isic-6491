@@ -34,9 +34,9 @@
     (is (= (get-in result ["record" "immutable"]) true))))
 
 (deftest disbursement-validation-rules
-  (is (thrown? Exception (r/register-lease-funding-disbursement "" "JPN" 0)))
-  (is (thrown? Exception (r/register-lease-funding-disbursement "lease-1" "" 0)))
-  (is (thrown? Exception (r/register-lease-funding-disbursement "lease-1" "JPN" -1))))
+  (is (thrown? #?(:clj Exception :cljs js/Error) (r/register-lease-funding-disbursement "" "JPN" 0)))
+  (is (thrown? #?(:clj Exception :cljs js/Error) (r/register-lease-funding-disbursement "lease-1" "" 0)))
+  (is (thrown? #?(:clj Exception :cljs js/Error) (r/register-lease-funding-disbursement "lease-1" "JPN" -1))))
 
 (deftest history-is-append-only
   (let [c1 (r/register-lease-funding-disbursement "lease-1" "JPN" 0)
