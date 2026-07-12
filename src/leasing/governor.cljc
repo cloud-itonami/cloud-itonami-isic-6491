@@ -91,12 +91,29 @@
   (never a `:status` value) -- the SAME 'check a dedicated boolean,
   not status' discipline every prior sibling governor's guards
   establish, informed by `cloud-itonami-isic-6492`'s status-lifecycle
-  bug (ADR-2607071320)."
+  bug (ADR-2607071320).
+
+  The decision itself is delegated to the safety kernel
+  `leasing.kernels.gate` (integer-coded, fail-closed, safe-kotoba
+  subset); this namespace keeps gathering the human-readable violation
+  evidence and maps the kernel's verdict code back to keywords."
   (:require [leasing.facts :as facts]
+            [leasing.kernels.gate :as gate]
             [leasing.registry :as registry]
             [leasing.store :as store]))
 
-(def confidence-floor 0.6)
+(def confidence-floor
+  "Documented threshold. The DECIDING copy is
+  `leasing.kernels.gate/confidence-floor-x100` (integer x100 in the
+  safety kernel); this def is kept for callers/docs and pinned equal
+  by `leasing.kernels.gate-test`."
+  0.6)
+
+(defn- confidence->x100
+  "Host bridge (façade-side, not kernel vocabulary): scale a 0.0..1.0
+  advisor confidence to the kernel's integer x100 wire code."
+  [c]
+  (Math/round (* 100.0 (double c))))
 
 (def high-stakes
   "Stakes grave enough to always require a human, even when clean.
@@ -179,21 +196,49 @@
   {:ok? bool :violations [..] :confidence c :escalate? bool
   :high-stakes? bool :hard? bool}."
   [request _context proposal st]
-  (let [hard (into []
-                   (concat (spec-basis-violations request proposal)
-                           (evidence-incomplete-violations request st)
-                           (collateral-coverage-insufficient-violations request st)
-                           (adverse-credit-flag-unresolved-violations request proposal st)
-                           (already-disbursed-violations request st)))
+  (let [spec-v (spec-basis-violations request proposal)
+        evid-v (evidence-incomplete-violations request st)
+        cov-v  (collateral-coverage-insufficient-violations request st)
+        adv-v  (adverse-credit-flag-unresolved-violations request proposal st)
+        dbl-v  (already-disbursed-violations request st)
+        hard (into [] (concat spec-v evid-v cov-v adv-v dbl-v))
         conf (:confidence proposal 0.0)
-        low? (< conf confidence-floor)
         stakes? (boolean (high-stakes (:stake proposal)))
-        hard? (boolean (seq hard))]
-    {:ok?          (and (not hard?) (not low?) (not stakes?))
+        ;; Coverage bridge: the kernel re-decides the minimum ratio
+        ;; from the lease's raw integer fields (100*collateral <
+        ;; 100*financed, EXACT integer arithmetic -- no float ratio
+        ;; crosses the boundary), matching `leasing.registry/
+        ;; collateral-coverage-ratio-insufficient?`'s ratio compare at
+        ;; every representable input. The applicability flag mirrors
+        ;; the registry's own guard (numbers + positive financed
+        ;; amount), so missing/non-positive fields never reach the
+        ;; kernel's own fail-closed range handling.
+        l (when (= (:op request) :disbursement/fund)
+            (store/lease st (:subject request)))
+        cv (:collateral-value l)
+        fa (:financed-amount l)
+        cov? (boolean (and (number? cv) (number? fa) (pos? fa)))
+        ;; The decision itself is delegated to the safety kernel
+        ;; (leasing.kernels.gate, integer-coded fail-closed core); this
+        ;; façade only gathers evidence (violation lists with
+        ;; human-readable details) and maps codes back to keywords.
+        ;; Kernel is stricter than the old inline logic on ONE case by
+        ;; design: an out-of-range confidence (< 0 or > 1.0) now
+        ;; escalates instead of counting as high confidence.
+        code (gate/verdict-code (if (seq spec-v) 1 0)
+                                (if (seq evid-v) 1 0)
+                                (if cov? 1 0)
+                                (if cov? cv 0)
+                                (if cov? fa 0)
+                                (if (seq adv-v) 1 0)
+                                (if (seq dbl-v) 1 0)
+                                (confidence->x100 conf)
+                                (if stakes? 1 0))]
+    {:ok?          (= 0 code)
      :violations   hard
      :confidence   conf
-     :hard?        hard?
-     :escalate?    (and (not hard?) (or low? stakes?))
+     :hard?        (= 2 code)
+     :escalate?    (= 1 code)
      :high-stakes? stakes?}))
 
 (defn hold-fact
