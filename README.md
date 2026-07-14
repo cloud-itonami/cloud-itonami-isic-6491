@@ -180,6 +180,7 @@ toward its own `:banking` capability reference.
 | `src/leasing/operation.cljc` | **OperationActor** -- langgraph-clj StateGraph |
 | `src/leasing/sim.cljc` | demo driver |
 | `test/leasing/*_test.clj` | governor contract · phase invariants · store parity · registry conformance · facts coverage |
+| `wasm/collateral_coverage.kotoba` | PoC: a WASM-compiled (`kotoba-lang/kotoba` -> `kotoba-lang/kototama`'s `actor:host` ABI) integer-cross-multiplication port of `leasing.registry/collateral-coverage-ratio-insufficient?`, i.e. `leasing.governor`'s `:collateral-coverage-insufficient` HARD check -- see `wasm/README.md` for the offset layout and cross-multiplication rationale |
 
 ## Business-process coverage (honest)
 

@@ -1,0 +1,21 @@
+(ns cloud-itonami-collateral-coverage)
+
+(defn collateral-coverage-ratio-insufficient? [collateral-value financed-amount]
+  (if (> financed-amount 0)
+    (if (< (* 100 collateral-value) (* 100 financed-amount)) 1 0)
+    0))
+
+;; ABI: `main` stays 0-arity (the compiler rejects a parameterized main --
+;; :main-arity, see kotoba-lang/kotoba's compile-wasm-expr) and reads its
+;; two real i32 inputs out of the exported linear memory instead, at fixed
+;; byte offsets a host writes into before calling main() (same convention
+;; as cloud-itonami-isic-6492's affordability.kotoba /
+;; cloud-itonami-isic-6630's fee_accrual.kotoba):
+;;   offset 0: collateral-value   (i32, smallest currency unit / cents)
+;;   offset 4: financed-amount    (i32, cents)
+;; Returns 1 (coverage insufficient -- leasing.governor's
+;; :collateral-coverage-insufficient HARD violation) or 0 (sufficient, or
+;; a non-positive financed-amount -- mirrors leasing.registry's own
+;; division-by-zero guard, see wasm/README.md).
+(defn main []
+  (collateral-coverage-ratio-insufficient? (mem-i32-at 0 0) (mem-i32-at 0 4)))
