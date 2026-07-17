@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial leasing — Open Business Blueprint (ISIC 6491)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    header { margin-bottom: 3rem; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .isic-badge { display: inline-block; background: #f0f0f0; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem; }
+    .pitch { font-size: 1.125rem; line-height: 1.8; margin-bottom: 2rem; color: #555; }
+    .cta-section { margin: 2.5rem 0; }
+    .cta-primary { display: inline-block; background: #2563eb; color: white; padding: 0.875rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600; margin-bottom: 1rem; }
+    .cta-primary:hover { background: #1d4ed8; }
+    .cta-secondary { display: inline-block; background: #e5e7eb; color: #333; padding: 0.875rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600; margin-left: 1rem; }
+    .cta-secondary:hover { background: #d1d5db; }
+    .links { margin: 2.5rem 0; padding: 1.5rem; background: #f9fafb; border-left: 4px solid #2563eb; border-radius: 6px; }
+    .links h2 { font-size: 1rem; margin-bottom: 0.75rem; }
+    .links ul { list-style: none; padding-left: 0; }
+    .links li { margin-bottom: 0.5rem; }
+    .links a { color: #2563eb; text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
+    footer { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; font-size: 0.875rem; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Financial leasing</h1>
+      <div class="isic-badge">ISIC Rev.5 6491</div>
+    </header>
+
+    <section class="pitch">
+      <p>An open business blueprint for financial leasing, combining a governed Leasing-LLM advisor with an independent Leasing Governor that gates every high-stakes decision. This actor covers lease-application intake, creditworthiness and collateral disclosure proposals, and lease-funding disbursement — all backed by an immutable audit ledger and human-mandatory approval workflows.</p>
+      <p>No lease is funded without human sign-off. Hard constraints (fabricated jurisdiction requirements, incomplete evidence, insufficient collateral coverage, unresolved adverse credit flags) force holds that cannot be overridden. Deploy as a forkable OSS business: any qualified, licensed lessor can fork, customize, deploy and operate a live instance in their jurisdiction.</p>
+    </section>
+
+    <section class="cta-section">
+      <a href="https://itonami.cloud/isco-1212/" class="cta-primary">Fork + Self-Host</a>
+      <a href="https://itonami.cloud/docs/go-live.md" class="cta-secondary">Go-Live Guide</a>
+    </section>
+
+    <section class="links">
+      <h2>Get Started</h2>
+      <ul>
+        <li><a href="../README.md">Repository README</a> — architecture, scope, and design rationale</li>
+        <li><a href="operator-quickstart.md">Operator Quickstart</a> — setup, testing, and demo walkthrough</li>
+        <li><a href="business-model.md">Business Model</a> — customer segments, offer, revenue, and trust controls</li>
+        <li><a href="operator-guide.md">Operator Guide</a> — first deployment, minimum production controls, certification</li>
+        <li><a href="adr/0001-architecture.md">Architecture Decision Record</a> — design history and technical decisions</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>Licensed under <a href="../LICENSE">AGPL-3.0-or-later</a>. Built on <a href="https://github.com/com-junkawasaki/langgraph-clj">langgraph-clj</a>, a portable StateGraph runtime for governed LLM actors.</p>
+    </footer>
+  </div>
+</body>
+</html>
