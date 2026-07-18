@@ -1,0 +1,69 @@
+<html><head><meta charset="utf-8"><title>cloud-itonami-isic-6491 &middot; financial leasing</title><style>
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.ok { color: #137a3f; }
+body { font-family: system-ui,-apple-system,sans-serif; margin: 0; color: #1a1a1a; background: #fafafa; }
+header.bar { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: #fff; border-bottom: 1px solid #e5e5e5; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+h2 { margin-top: 0; font-size: 15px; }
+.warn { color: #b25c00; background: #fff8e1; padding: 2px 6px; border-radius: 4px; }
+main { max-width: 980px; margin: 24px auto; padding: 0 20px; }
+header.bar h1 { font-size: 18px; margin: 0; font-weight: 600; }
+.muted { color: #888; font-size: 13px; }
+.critical { color: #fff; background: #b3261e; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+.card { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+.err { color: #b3261e; background: #fbe9e7; padding: 2px 6px; border-radius: 4px; }
+th { font-weight: 600; color: #555; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+header.bar .badge { margin-left: auto; font-size: 12px; color: #666; }
+code { font-size: 12px; background: #f4f4f4; padding: 1px 4px; border-radius: 3px; }
+</style></head><body>
+<header class="bar">
+  <h1>Financial leasing (ISIC 6491) — Operator Console</h1>
+  <span class="badge">read-only sample · governor-gated · lease-funding disbursement always human-approved</span>
+</header>
+<main>
+  <section class="card">
+    <h2>Leases</h2>
+    <p class="muted">Demo snapshot — build-time-generated from <code>leasing.store</code> via <code>leasing.render-html</code> (<code>clojure -M:dev:render-html</code>), regenerated nightly.</p>
+    <table>
+      <thead><tr><th>Lease</th><th>Lessee</th><th>Jurisdiction</th><th>Collateral value</th><th>Financed amount</th><th>Credit screen</th><th>Funding</th><th>Last op status</th></tr></thead>
+      <tbody>
+        <tr><td>lease-1</td><td>Sakura Tanaka</td><td>JPN</td><td>100000</td><td>100000</td><td><span class="ok">clean</span></td><td><span class="ok">disbursed</span></td><td><span class="critical">HARD hold &middot; already-disbursed</span></td></tr>
+        <tr><td>lease-2</td><td>Atlantis Doe</td><td>ATL</td><td>100000</td><td>100000</td><td><span class="ok">clean</span></td><td><span class="muted">not disbursed</span></td><td><span class="critical">HARD hold &middot; no-spec-basis</span></td></tr>
+        <tr><td>lease-3</td><td>鈴木一郎</td><td>JPN</td><td>60000</td><td>100000</td><td><span class="ok">clean</span></td><td><span class="muted">not disbursed</span></td><td><span class="critical">HARD hold &middot; collateral-coverage-insufficient</span></td></tr>
+        <tr><td>lease-4</td><td>田中花子</td><td>JPN</td><td>100000</td><td>100000</td><td><span class="critical">adverse</span></td><td><span class="muted">not disbursed</span></td><td><span class="critical">HARD hold &middot; adverse-credit-flag-unresolved</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Action gate (Leasing Governor)</h2>
+    <p class="muted">HARD holds cannot be overridden. Jurisdiction spec-basis, evidence completeness, collateral-coverage ratio and adverse-credit-flag status are all independently checked from the lease's own permanent fields, never trusted from the advisor's proposal.</p>
+    <table>
+      <thead><tr><th>Op</th><th>Gate</th></tr></thead>
+      <tbody>
+        <tr><td><code>:lease/intake</code></td><td><span class="ok">phase-3 auto-commit when clean -- the ONLY op this actor ever auto-commits</span></td></tr>
+        <tr><td><code>:jurisdiction/assess</code></td><td><span class="warn">ALWAYS human approval &middot; spec-basis independently checked against <code>leasing.facts</code></span></td></tr>
+        <tr><td><code>:creditworthiness/screen</code></td><td><span class="warn">ALWAYS human approval, never auto at any phase &middot; adverse-credit-flag HARD-holds un-overridably</span></td></tr>
+        <tr><td><code>:disbursement/fund</code></td><td><span class="warn">ALWAYS human approval, never auto at any phase &middot; collateral-coverage independently recomputed, double-disbursement blocked</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="card">
+    <h2>Audit ledger (this run)</h2>
+    <p class="muted">Append-only decision-fact log — every proposal, hold and commit this scenario produced.</p>
+    <table>
+      <thead><tr><th>Fact</th><th>Op</th><th>Lease</th><th>Basis</th></tr></thead>
+      <tbody>
+        <tr><td>committed</td><td><code>intake</code></td><td>lease-1</td><td>id, lessee-name</td></tr>
+        <tr><td>committed</td><td><code>assess</code></td><td>lease-1</td><td>貸金業法 (Money Lending Business Act) / 割賦販売法 (Installment Sales Act), https://www.fsa.go.jp/</td></tr>
+        <tr><td>committed</td><td><code>screen</code></td><td>lease-1</td><td>credit-check</td></tr>
+        <tr><td>committed</td><td><code>fund</code></td><td>lease-1</td><td>lease-1</td></tr>
+        <tr><td>governor-hold</td><td><code>assess</code></td><td>lease-2</td><td>no-spec-basis</td></tr>
+        <tr><td>committed</td><td><code>assess</code></td><td>lease-3</td><td>貸金業法 (Money Lending Business Act) / 割賦販売法 (Installment Sales Act), https://www.fsa.go.jp/</td></tr>
+        <tr><td>governor-hold</td><td><code>fund</code></td><td>lease-3</td><td>collateral-coverage-insufficient</td></tr>
+        <tr><td>governor-hold</td><td><code>screen</code></td><td>lease-4</td><td>adverse-credit-flag-unresolved</td></tr>
+        <tr><td>governor-hold</td><td><code>fund</code></td><td>lease-1</td><td>already-disbursed</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+</body></html>
