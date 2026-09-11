@@ -44,7 +44,7 @@ Output includes decision records and audit trail for each path.
 
 ## The Leasing Governor
 
-**Location:** `src/leasing/governor.cljc`
+**Location:** `src/leasing/governor.cljk`
 
 The Governor is an independent verification layer that sits between the Leasing-LLM advisor and disbursement. It enforces:
 
@@ -60,11 +60,11 @@ The Governor is an independent verification layer that sits between the Leasing-
 
 - **Human-mandatory actuation** — lease-funding disbursement always requires human sign-off, enforced at both the Governor level (`:actuation/fund-lease-disbursement` high-stakes gate) and the Phase table (`:disbursement/fund` never in auto sets)
 
-See `src/leasing/phase.cljc` for the 4-phase workflow definition and `test/leasing/governor_test.clj` for contract verification.
+See `src/leasing/phase.cljk` for the 4-phase workflow definition and `test/leasing/governor_test.clj` for contract verification.
 
 ## Jurisdiction coverage
 
-Current catalog in `src/leasing/facts.cljc`: 4 seeded jurisdictions (JPN, USA, GBR, DEU) out of ~194 worldwide.
+Current catalog in `src/leasing/facts.cljk`: 4 seeded jurisdictions (JPN, USA, GBR, DEU) out of ~194 worldwide.
 
 To add a jurisdiction:
 1. Add one map entry to `leasing.facts/catalog` with official spec-basis citation
@@ -82,7 +82,7 @@ Runs clj-kondo static analysis (errors fail CI).
 
 ## What's next
 
-- **Customize the Governor** — adjust HARD check thresholds or add new gates in `src/leasing/governor.cljc`
-- **Extend the Phase workflow** — add new phases or operations in `src/leasing/phase.cljc`
+- **Customize the Governor** — adjust HARD check thresholds or add new gates in `src/leasing/governor.cljk`
+- **Extend the Phase workflow** — add new phases or operations in `src/leasing/phase.cljk`
 - **Import historical records** — see `Operator Guide` for first deployment checklist
 - **Deploy** — see `docs/business-model.md` for unit economics and `docs/operator-guide.md` for production controls

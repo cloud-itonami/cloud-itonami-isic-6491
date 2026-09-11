@@ -1,0 +1,23 @@
+{:format :kotoba.cljk-origin/v1
+ :renamed-on "2026-09-11"
+ :decision "adr-2609111500-cljk-rename-all-clojure-source (com-junkawasaki/root 90-docs/adr; owner instruction 2026-09-11)"
+ :rule "value = the extension the file had before the rename. A path ending in .clj.cljk or .cljs.cljk kept it in the name because both platform files existed (or the plain target was taken)."
+ :origins
+ {"src/leasing/facts.cljk" ".cljc"
+  "src/leasing/governor.cljk" ".cljc"
+  "src/leasing/kernels/gate.cljk" ".cljc"
+  "src/leasing/leasingllm.cljk" ".cljc"
+  "src/leasing/operation.cljk" ".cljc"
+  "src/leasing/phase.cljk" ".cljc"
+  "src/leasing/registry.cljk" ".cljc"
+  "src/leasing/render_html.cljk" ".clj"
+  "src/leasing/sim.cljk" ".cljc"
+  "src/leasing/store.cljk" ".cljc"
+  "test/leasing/facts_test.cljk" ".cljc"
+  "test/leasing/governor_contract_test.cljk" ".cljc"
+  "test/leasing/kernels/gate_test.cljk" ".cljc"
+  "test/leasing/phase_test.cljk" ".cljc"
+  "test/leasing/portable_cljs_test_runner.cljk" ".cljc"
+  "test/leasing/registry_test.cljk" ".cljc"
+  "test/leasing/store_contract_test.cljk" ".cljc"
+  "test/wasm/collateral_coverage_test.cljk" ".clj"}}
