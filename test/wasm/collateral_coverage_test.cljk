@@ -11,7 +11,7 @@
   exported linear memory at fixed offsets before calling main() -- see
   wasm/collateral_coverage.kotoba's header comment for the offset layout.
 
-  Test vectors mirror test/leasing/registry_test.cljc's own cases for
+  Test vectors mirror test/leasing/registry_test.cljk's own cases for
   `collateral-coverage-ratio-insufficient?` exactly, so a divergence
   between the JVM Clojure original and this WASM port would show up as a
   mismatched expectation here, not just a coincidentally-passing new

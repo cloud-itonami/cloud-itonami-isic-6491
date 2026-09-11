@@ -4,11 +4,11 @@
 `leasing.registry/collateral-coverage-ratio-insufficient?` -- the check
 `leasing.governor`'s `:collateral-coverage-insufficient` HARD violation
 runs against a lease's own `:collateral-value` and `:financed-amount`
-(see `src/leasing/registry.cljc`'s ns docstring: "the FIRST RATIO-based
+(see `src/leasing/registry.cljk`'s ns docstring: "the FIRST RATIO-based
 sufficiency check in this fleet's check-family taxonomy") -- into the
 minimal `.kotoba` language subset, compiled to a real WASM module via
 `kotoba wasm emit`, and hosted via `kototama.tender`
-(`test/wasm/collateral_coverage_test.clj`).
+(`test/wasm/collateral_coverage_test.cljk`).
 
 This follows the same `kotoba wasm emit` → `kototama.tender` pipeline
 `cloud-itonami-isic-6492`'s `wasm/affordability.kotoba` and
@@ -46,7 +46,7 @@ unlike the broader tree-walking interpreter, same finding
   financed-amount))`. This mirrors, byte-for-byte in its inequality
   shape, the convention this SAME repo's own `leasing.kernels.gate`
   safety kernel already established for this exact check
-  (`coverage-insufficient`, `src/leasing/kernels/gate.cljc`):
+  (`coverage-insufficient`, `src/leasing/kernels/gate.cljk`):
   `100*collateral < minimum-coverage-ratio-x100*financed`, with
   `minimum-coverage-ratio-x100 = 100`. `gate.cljc`'s own docstring notes
   `.kotoba`/wasm emission was deliberately NOT wired for it yet (owner
@@ -66,7 +66,7 @@ unlike the broader tree-walking interpreter, same finding
   `collateral-coverage-ratio-insufficient?` treats a non-positive
   `financed-amount` as NOT insufficient (the `and`'s `pos?` guard makes
   the whole predicate false -- "zero financed-amount -> no division by
-  zero, never flagged", per `test/leasing/registry_test.cljc`). This is
+  zero, never flagged", per `test/leasing/registry_test.cljk`). This is
   the opposite fail direction from `gate.cljc`'s own 3-arg
   `coverage-insufficient`, which treats a non-positive `financed`
   reaching the kernel as insufficient (fail-closed) -- but `gate.cljc`'s

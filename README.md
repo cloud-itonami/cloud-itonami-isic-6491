@@ -171,14 +171,14 @@ toward its own `:banking` capability reference.
 
 | File | Role |
 |---|---|
-| `src/leasing/store.cljc` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + lease-funding-disbursement history. No dynamically-filed sub-record -- the actuation op acts directly on a pre-seeded lease, and the double-disbursement guard checks a dedicated `:disbursed?` boolean rather than a `:status` value |
-| `src/leasing/registry.cljc` | Lease-funding-disbursement draft records, plus `collateral-coverage-ratio-insufficient?` -- the FIRST RATIO-based sufficiency check in this fleet's check-family taxonomy (every prior family compares two fields directly; this compares their QUOTIENT against a required minimum ratio) |
-| `src/leasing/facts.cljc` | Per-jurisdiction leasing/consumer-credit catalog with an official spec-basis citation per entry, honest coverage reporting |
-| `src/leasing/leasingllm.cljc` | **Leasing-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/creditworthiness-screening/funding-disbursement proposals |
-| `src/leasing/governor.cljc` | **Leasing Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · collateral-coverage-insufficient, pure ground-truth RATIO-based recompute · adverse-credit-flag-unresolved, unconditional evaluation, the TWENTY-FIRST grounding of this discipline and FIRST specifically for an adverse-credit/financial-history-flag concept) + already-disbursed guard + 1 soft (confidence/actuation gate) |
-| `src/leasing/phase.cljc` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (funding disbursement always human; lease intake is the ONLY auto-eligible op, no direct capital risk) |
-| `src/leasing/operation.cljc` | **OperationActor** -- langgraph-clj StateGraph |
-| `src/leasing/sim.cljc` | demo driver |
+| `src/leasing/store.cljk` | **Store** protocol -- `MemStore` ‖ `DatomicStore` (`langchain.db`) + append-only audit ledger + lease-funding-disbursement history. No dynamically-filed sub-record -- the actuation op acts directly on a pre-seeded lease, and the double-disbursement guard checks a dedicated `:disbursed?` boolean rather than a `:status` value |
+| `src/leasing/registry.cljk` | Lease-funding-disbursement draft records, plus `collateral-coverage-ratio-insufficient?` -- the FIRST RATIO-based sufficiency check in this fleet's check-family taxonomy (every prior family compares two fields directly; this compares their QUOTIENT against a required minimum ratio) |
+| `src/leasing/facts.cljk` | Per-jurisdiction leasing/consumer-credit catalog with an official spec-basis citation per entry, honest coverage reporting |
+| `src/leasing/leasingllm.cljk` | **Leasing-LLM Advisor** -- `mock-advisor` ‖ `llm-advisor`; intake/assessment/creditworthiness-screening/funding-disbursement proposals |
+| `src/leasing/governor.cljk` | **Leasing Governor** -- 4 HARD checks (spec-basis · evidence-incomplete · collateral-coverage-insufficient, pure ground-truth RATIO-based recompute · adverse-credit-flag-unresolved, unconditional evaluation, the TWENTY-FIRST grounding of this discipline and FIRST specifically for an adverse-credit/financial-history-flag concept) + already-disbursed guard + 1 soft (confidence/actuation gate) |
+| `src/leasing/phase.cljk` | **Phase 0→3** -- read-only → assisted intake → assisted assess → supervised (funding disbursement always human; lease intake is the ONLY auto-eligible op, no direct capital risk) |
+| `src/leasing/operation.cljk` | **OperationActor** -- langgraph-clj StateGraph |
+| `src/leasing/sim.cljk` | demo driver |
 | `test/leasing/*_test.clj` | governor contract · phase invariants · store parity · registry conformance · facts coverage |
 | `wasm/collateral_coverage.kotoba` | PoC: a WASM-compiled (`kotoba-lang/kotoba` -> `kotoba-lang/kototama`'s `actor:host` ABI) integer-cross-multiplication port of `leasing.registry/collateral-coverage-ratio-insufficient?`, i.e. `leasing.governor`'s `:collateral-coverage-insufficient` HARD check -- see `wasm/README.md` for the offset layout and cross-multiplication rationale |
 
