@@ -18,7 +18,7 @@ Standalone forks should override these with GitHub coordinates in `deps.edn`.
 ## Run tests
 
 ```bash
-clojure -M:dev:test
+kbb -M:dev:test
 ```
 
 This runs the full test suite covering:
@@ -31,7 +31,7 @@ This runs the full test suite covering:
 ## Run the demo
 
 ```bash
-clojure -M:dev:run
+kbb -M:dev:run
 ```
 
 This walks a single clean lease through the full lifecycle plus four HARD-hold cases:
@@ -75,7 +75,7 @@ Never fabricate a jurisdiction's requirements to inflate coverage.
 ## Lint
 
 ```bash
-clojure -M:lint
+kbb -M:lint
 ```
 
 Runs clj-kondo static analysis (errors fail CI).
