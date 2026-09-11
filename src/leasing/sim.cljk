@@ -1,5 +1,5 @@
 (ns leasing.sim
-  "Demo driver -- `clojure -M:dev:run`. Walks a clean lease through
+  "Demo driver -- `kbb -M:dev:run`. Walks a clean lease through
   intake -> jurisdiction assessment -> creditworthiness screening ->
   funding-disbursement proposal (always escalates) -> human approval
   -> commit, then shows four HARD holds (a jurisdiction with no spec-
