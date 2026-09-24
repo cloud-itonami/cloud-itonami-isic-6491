@@ -1,5 +1,5 @@
 (ns leasing.registry-test
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [leasing.registry :as r]))
 
 ;; ----------------------------- collateral-coverage-ratio-insufficient? -----------------------------
