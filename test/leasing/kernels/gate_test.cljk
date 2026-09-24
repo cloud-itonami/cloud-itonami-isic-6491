@@ -14,7 +14,7 @@
      fail-closed treatment of out-of-range confidence, and the
      collateral-coverage minimum-ratio boundary, exercised through the
      real `leasing.governor/check` façade."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [leasing.facts :as facts]
             [leasing.governor :as governor]
             [leasing.kernels.gate :as gate]
