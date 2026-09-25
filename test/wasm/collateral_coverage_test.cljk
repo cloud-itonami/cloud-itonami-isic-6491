@@ -16,7 +16,7 @@
   between the JVM Clojure original and this WASM port would show up as a
   mismatched expectation here, not just a coincidentally-passing new
   suite."
-  (:require [clojure.java.io :as io]
+  (:require [kotoba.io :as io]
             [kotoba.test :refer [deftest is testing]]
             [kototama.contract :as contract]
             [kototama.tender :as tender]))
